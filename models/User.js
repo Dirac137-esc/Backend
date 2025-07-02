@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,          // VIP хэрэглэгч эсэх
         default: false
     },
-    Streak: { type: Number, default: 0 },   //streak дараалан захиалга хийсэн тоо
+    currentStreak: { type: Number, default: 0 },   //streak дараалан захиалга хийсэн тоо
     lastOrderDate: { type: Date }
 }, {
     timestamps: true           // createdAt ба updatedAt

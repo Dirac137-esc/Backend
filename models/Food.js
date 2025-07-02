@@ -11,6 +11,10 @@ const foodSchema = new mongoose.Schema({
     price: {
         type: Number,         // Хоолны үнэ
         required: true
+    },
+    ingredients: {
+        type: [String],   //орц
+        default: []
     }
 }, {
     timestamps: true          // createdAt ба updatedAt
