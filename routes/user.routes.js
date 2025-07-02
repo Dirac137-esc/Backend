@@ -17,7 +17,7 @@ module.exports = router;
     "email": "newemail@example.com",
     "phone": "88880000",
     "address": "UB",
-    "oldPassword": "123456",
+    "oldPassword": "test123",
     "password": "newpassword123"
 }
 */
