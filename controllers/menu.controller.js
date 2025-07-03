@@ -54,20 +54,35 @@ exports.list = async (req, res) => {
             .map(d => `days.${d}`));
     res.json(menus);
 };
+
 exports.thisWeek = async (req, res) => {
-
     const today = new Date();
-    const daysSinceMonday = (today.getDay() + 6) % 7;
-    const weekStart = new Date(today);
-    weekStart.setDate(today.getDate() - daysSinceMonday);
-    weekStart.setHours(0,0,0,0);
+    today.setUTCHours(0, 0, 0, 0);
 
-    const menu = await Menu.findOne({ weekStart })
-        .populate(Object.keys(Menu.schema.paths.days.schema.paths)
-            .map(d => `days.${d}`));
-    if (!menu) return res.status(404).json({ message: 'No menu this week' });
-    res.json(menu);
+    const daysSinceMonday = (today.getUTCDay() + 6) % 7;
+
+    const weekStart = new Date(today);
+    weekStart.setUTCDate(today.getUTCDate() - daysSinceMonday);
+    weekStart.setUTCHours(0, 0, 0, 0);
+
+    try {
+        const menu = await Menu.findOne({ weekStart })
+            .populate(Object.keys(Menu.schema.paths.days.schema.paths)
+                .map(d => `days.${d}`));
+
+        if (!menu) {
+            return res.status(404).json({
+                message: `No menu this week for ${weekStart.toISOString().slice(0, 10)}`
+            });
+        }
+
+        res.json(menu);
+    } catch (err) {
+        console.error('Error in thisWeek:', err);
+        res.status(500).json({ message: 'Server error' });
+    }
 };
+
 exports.removeDayItem = async (req, res) => {
     try {
         const { id, day, foodId } = req.params;
