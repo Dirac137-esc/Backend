@@ -3,7 +3,7 @@ const authJwt = require('../middleware/authJwt');
 const checkRole = require('../middleware/verifyRole');
 const controller = require('../controllers/food.controller');
 
-router.get('/'/*,authJwt*/, controller.list);
+router.get('/',authJwt, controller.list);
 
 router.post('/', authJwt, checkRole('admin'), controller.create);
 

@@ -6,7 +6,7 @@ router.get('/', authJwt, controller.list);
 
 router.post('/', authJwt, checkRole('admin'), controller.create);
 
-router.get('/this-week', authJwt, controller.thisWeek);
+router.get('/this-week'/*, authJwt*/, controller.thisWeek);
 
 router.put('/:id', authJwt, checkRole('admin'), controller.update);
 
