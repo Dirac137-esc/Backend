@@ -1,42 +1,45 @@
 const mongoose = require('mongoose');
 
-
 const orderSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId, // хэрэглэгчийн ID
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    date: {
-        type: Date,                           // Захиалга хийсэн огноо
+    menu: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Menu',
         required: true
     },
-    items: [                                  // Захиалгад орсон хоолнуудын жагсаалт
+    weekday: {
+        type: String,
+        enum: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'],
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    items: [
         {
-            food: {
-                type: mongoose.Schema.Types.ObjectId, // Хоолны ID
-                ref: 'Food'                           // 'Food' схем төрлийн
-            },
+            food: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
             qty: Number
         }
     ],
     totalCost: {
-        type: Number,                             // нийт үнийн дүн
+        type: Number,
         required: true
     },
     paymentStatus: {
         type: String,
-        enum: ['pending', 'paid', 'refund'],      // Төлбөрийн төлөв
+        enum: ['pending','paid','refund'],
         default: 'pending'
     },
     deliveryStatus: {
         type: String,
-        enum: ['pending', 'delivering', 'complete'], // Хүргэлтийн төлөв
+        enum: ['pending','delivering','complete'],
         default: 'pending'
     }
-}, {
-    timestamps: true // createdAt ба updatedAt
-});
-
+}, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

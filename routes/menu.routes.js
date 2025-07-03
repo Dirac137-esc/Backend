@@ -12,4 +12,8 @@ router.put('/:id', authJwt, checkRole('admin'), controller.update);
 
 router.delete('/:id', authJwt, checkRole('admin'), controller.remove);
 
+router.delete('/:id/days/:day/:foodId', authJwt, checkRole('admin'), controller.removeDayItem);
+
+router.post('/:id/days/:day/:foodId', authJwt, checkRole('admin'), controller.addDayItem);
+
 module.exports = router;
