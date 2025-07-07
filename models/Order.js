@@ -20,6 +20,7 @@ const orderSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+
     items: [
         {
             food: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
@@ -39,7 +40,27 @@ const orderSchema = new mongoose.Schema({
         type: String,
         enum: ['pending','delivering','complete'],
         default: 'pending'
+    },
+    location: {
+        latitude: {
+            type: Number,
+            required: [true, 'Latitude is required']
+        },
+        longitude: {
+            type: Number,
+            required: [true, 'Longitude is required']
+        },
+        address: {
+            type: String,
+            required: [true, 'Address is required'],
+            trim: true
+        },
+        additionalNote: {
+            type: String,
+            default: ''
+        }
     }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);
