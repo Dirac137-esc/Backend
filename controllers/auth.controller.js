@@ -17,9 +17,9 @@ exports.login = async (req, res) => {
         return res.status(401).json({ message: 'Бүртгэлгүй эсвэл мэдээлэл буруу байна' });
 
     const token = jwt.sign(
-        { id: user._id, role: user.roles[0] },
+        { id: user._id, role: user.roles[0]},
         process.env.JWT_SECRET,
         { expiresIn: process.env.TOKEN_EXPIRES_IN }
     );
-    res.json({ token, user: { id: user._id, name: user.name, role: user.roles[0] } });
+    res.json({ token, user: { id: user._id, name: user.name,  email: user.email,role: user.roles[0],isVip: user.isVip, } });
 };
