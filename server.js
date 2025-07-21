@@ -16,5 +16,6 @@ app.use('/menus', require('./routes/menu.routes'));
 app.use('/orders', require('./routes/order.routes'));
 app.use('/users', require('./routes/user.routes'));
 app.get('/test', (req, res) => res.json({ message: 'Ажиллаж л байна даа' }));
+app.use('/api', require('./routes/address.routes'));
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
