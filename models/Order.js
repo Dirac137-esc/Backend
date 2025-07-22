@@ -44,11 +44,11 @@ const orderSchema = new mongoose.Schema({
     location: {
         latitude: {
             type: Number,
-            required: [true, 'Latitude is required']
+            required:false
         },
         longitude: {
             type: Number,
-            required: [true, 'Longitude is required']
+            required:false
         },
         address: {
             type: String,
