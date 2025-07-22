@@ -33,15 +33,8 @@ router.get(
         );
 
 
-        res.json({
-            token,
-            user: {
-                id:     req.user.id,
-                email:  req.user.email,
-                name:   req.user.name,
-                avatar: req.user.avatar
-            }
-        });
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000' ||'http://localhost:3001' ;
+           res.redirect(`${frontendUrl}/auth/callback?token=${token}`);
     }
 );
 
