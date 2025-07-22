@@ -42,6 +42,14 @@ const orderSchema = new mongoose.Schema({
         default: 'pending'
     },
     location: {
+        latitude: {
+            type: Number,
+            required:false
+        },
+        longitude: {
+            type: Number,
+            required:false
+        },
         address: {
             type: String,
             required: [true, 'Address is required'],

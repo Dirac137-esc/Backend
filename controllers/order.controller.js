@@ -13,8 +13,8 @@ exports.create = async (req, res) => {
         } = req.body;
 
 
-        if (!location || !location.latitude || !location.longitude || !location.address) {
-            return res.status(400).json({ message: 'Location with latitude, longitude and address is required' });
+        if (!location|| !location.address) {
+            return res.status(400).json({ message: 'address is required' });
         }
 
         const orderDate = new Date(date);
