@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express = require('express');
+const session      = require('express-session');
+const cookieParser = require('cookie-parser');
+const passport     = require('passport');
 const cors = require('cors');
 const connectDB = require('./config/database_connection');
 
@@ -8,6 +11,17 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+
+
+        +app.use(cookieParser());
+app.use(session({
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./middleware/google');    // <— load GoogleStrategy
 
 // Routes
 app.use('/auth', require('./routes/auth.routes'));

@@ -1,14 +1,28 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    googleId:   {
+        type: String,
+        unique: true,
+        sparse: true,
+    },
+    avatar:     {
+        type: String
+    },
     name: {
-        type: String,           // Хэрэглэгчийн нэр
-        required: true
+        type: String,
+        unique: false,// Хэрэглэгчийн нэр
+        sparse: true,
+        required() {
+            return !this.googleId;
+        }
     },
     phone: {
         type: String,
-        required: true,
-        unique: true        // Давхардахгүй
+        unique: true,
+        sparse:  true,
+        required() {
+            return !this.googleId }
     },
     address: {
         type: String,
@@ -21,7 +35,9 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required() {
+            return !this.googleId;
+        }
     },
     roles: {
         type: [String],         // эрх
@@ -36,6 +52,5 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true           // createdAt ба updatedAt
 });
-
 
 module.exports = mongoose.model('User', userSchema);
